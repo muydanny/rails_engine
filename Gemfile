@@ -17,6 +17,8 @@ gem 'active_model_serializers'
 gem 'rack-cors'
 gem 'devise'
 gem 'pry'
+gem 'faker'
+gem 'fast_jsonapi'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production

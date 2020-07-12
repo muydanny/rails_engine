@@ -8,15 +8,13 @@ describe "Items API" do
     get "/api/v1/items/#{item.id}"
 
     expect(response).to be_successful
-
+    
     single_item = JSON.parse(response.body)
     expect(response).to be_successful
-    expect(item['id']).to eq(item.id)
     expect(item['name']).to eq(item.name)
     expect(item['description']).to eq(item.description)
     expect(item['unit_price']).to eq(item.unit_price)
     expect(item['merchant_id']).to eq(item.merchant_id)
-
   end
 end
 
