@@ -15,6 +15,7 @@ gem 'puma', '~> 3.7'
 gem 'simplecov', require: false, group: :test
 gem 'active_model_serializers'
 gem 'rack-cors'
+gem 'devise'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
@@ -32,11 +33,11 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails', '~> 3.5'
-  gem 'factory_bot'
   gem 'capybara'
   gem 'database_cleaner'
   gem 'vcr'
   gem 'webmock'
+  gem 'factory_bot_rails'
 end
 
 group :development do
