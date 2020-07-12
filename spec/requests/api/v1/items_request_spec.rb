@@ -2,15 +2,21 @@ require 'rails_helper'
 
 describe "Items API" do
   it "can get an item" do
-    id = create(:item).id
+    item = create(:item)
+    merchant = create(:merchant)
 
-    get "/api/v1/items/#{id}"
+    get "/api/v1/items/#{item.id}"
 
     expect(response).to be_successful
 
-    item = JSON.parse(response.body)
+    single_item = JSON.parse(response.body)
     expect(response).to be_successful
-    expect(item['id']).to eq(id)
+    expect(item['id']).to eq(item.id)
+    expect(item['name']).to eq(item.name)
+    expect(item['description']).to eq(item.description)
+    expect(item['unit_price']).to eq(item.unit_price)
+    expect(item['merchant_id']).to eq(item.merchant_id)
+
   end
 end
 
