@@ -64,7 +64,7 @@ RSpec.configure do |config|
   config.after(:all) do
     DatabaseCleaner.clean
   end
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
