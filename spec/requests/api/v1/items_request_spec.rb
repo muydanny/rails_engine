@@ -16,25 +16,55 @@ describe "Items API" do
     expect(item['unit_price']).to eq(item.unit_price)
     expect(item['merchant_id']).to eq(item.merchant_id)
   end
+
+  it "can get all items" do 
+    item = create(:item)
+    item = create(:item)
+    merchant = create(:merchant)
+
+    get "/api/v1/items"
+
+    expect(response).to be_successful
+    items = JSON.parse(response.body)
+    expect(items.count).to eq(2)
+  end
 end
 
-# describe 'ReST endpoints' do
-#     describe 'Items' do
-#       it 'can get an item' do
-#         response = conn('/api/v1/items/179').get
 
-#         expected_attributes = {
-#           name: 'Item Qui Veritatis',
-#           description: 'Totam labore quia harum dicta eum consequatur qui. Corporis inventore consequatur. Illum facilis tempora nihil placeat rerum sint est. Placeat ut aut. Eligendi perspiciatis unde eum sapiente velit.',
-#           unit_price: 906.17,
-#           merchant_id: 9
+# it 'can create and delete an item' do
+#         name = "Shiny Itemy Item"
+#         description = "It does a lot of things real good"
+#         unit_price = 5011.96
+#         merchant_id = 43
+
+#         body = {
+#           name: name,
+#           description: description,
+#           unit_price: unit_price,
+#           merchant_id: merchant_id
 #         }
+
+#         # Create a item
+#         response = conn('/api/v1/items').post do |request|
+#           request.body = body
+#         end
 
 #         json = JSON.parse(response.body, symbolize_names: true)
 
-#         expect(json[:data][:id]).to eq('179')
+#         new_item = json[:data]
+#         expect(new_item[:attributes][:name]).to eq(name)
+#         expect(new_item[:attributes][:description]).to eq(description)
+#         expect(new_item[:attributes][:unit_price]).to eq(unit_price)
+#         expect(new_item[:attributes][:merchant_id]).to eq(merchant_id)
 
-#         expected_attributes.each do |attribute, value|
-#           expect(json[:data][:attributes][attribute]).to eq(value)
-#         end
+#         # Delete a item
+#         delete_response = conn("/api/v1/items/#{new_item[:id]}").delete
+
+#         json = JSON.parse(delete_response.body, symbolize_names: true)
+
+#         deleted_item = json[:data]
+#         expect(deleted_item[:attributes][:name]).to eq(name)
+#         expect(deleted_item[:attributes][:description]).to eq(description)
+#         expect(deleted_item[:attributes][:unit_price]).to eq(unit_price)
+#         expect(deleted_item[:attributes][:merchant_id]).to eq(merchant_id)
 #       end
