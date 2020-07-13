@@ -33,14 +33,13 @@ describe "Items API" do
     item_params = {name: "Shiny Itemy Item", description: "I want to play a game", unit_price: 5011.96, merchant_id: merchant.id}
 
     post '/api/v1/items', params: {item: item_params}
-    item = Item.last
 
     expect(response).to be_successful
+    body = response.body 
+    response = JSON.parse(body)
     
-    expect(item.name).to eq(item_params[:name])
-    expect(item.description).to eq(item_params[:description])
-    expect(item.unit_price).to eq(item_params[:unit_price])
-    expect(item.merchant_id).to eq(item_params[:merchant_id])
+    expect(response["data"]["attributes"]["name"]).to eq("Shiny Itemy Item")
+    expect(response["data"]["attributes"]["description"]).to eq("I want to play a game")
   end
 
   it "can delete an item" do 
