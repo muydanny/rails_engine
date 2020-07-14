@@ -24,7 +24,7 @@ describe "Relationships API" do
     get "/api/v1/items/#{item.id}/merchant"
 
     body = JSON.parse(response.body)
-    expect(body['data']['id']).to eq(merchant.id)
+    expect(body['data']['id']).to eq("#{merchant.id}")
   end
 
 end
