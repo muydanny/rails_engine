@@ -11,10 +11,10 @@ describe "Items API" do
     
     single_item = JSON.parse(response.body)
     expect(response).to be_successful
-    expect(item['name']).to eq(item.name)
-    expect(item['description']).to eq(item.description)
-    expect(item['unit_price']).to eq(item.unit_price)
-    expect(item['merchant_id']).to eq(item.merchant_id)
+    expect(single_item["data"]["attributes"]['name']).to eq(item.name)
+    expect(single_item["data"]["attributes"]['description']).to eq(item.description)
+    expect(single_item["data"]["attributes"]['unit_price']).to eq(item.unit_price)
+    expect(single_item["data"]["attributes"]['merchant_id']).to eq(item.merchant_id)
   end
 
   it "can get all items" do 
