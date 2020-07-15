@@ -50,8 +50,8 @@ describe "Relationships API" do
     get '/api/v1/merchants/find?name=ILL'
     body = JSON.parse(response.body, symbolize_names: true)
     
-    name = body[:data][0][:attributes][:name].downcase
-    expect(body[:data]).to be_a(Array)
+    name = body[:data][:attributes][:name].downcase
+    expect(body[:data]).to be_a(Hash)
     expect(name).to include('ill') 
     # TODO need to expect data to be a hash not array
   end
@@ -72,7 +72,7 @@ describe "Relationships API" do
     end
     
     expect(names).to eq(["harujuku girls", "harumonica"])
-    expect(names).to_not eq(["Jedi Mind Tricks"])
+    expect(names).to_not eq(["Avocado Basil Ice Cream"])
 
   end
   
