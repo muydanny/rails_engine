@@ -17,7 +17,6 @@ describe "Relationships API" do
   end
 
   it "can get merchant for an item" do 
-
     merchant = create(:merchant)
     item = create(:item, merchant: merchant)
 
@@ -31,12 +30,18 @@ describe "Relationships API" do
     merchant1 = create(:merchant, name: "Illmatic" )
     merchant2 = create(:merchant, name: "Lauryn Hill" )
     merchant3 = create(:merchant, name: "Lill Kim" )
+    merchant4 = create(:merchant, name: "Jedi Mind Tricks" )
     
     get "/api/v1/merchants/find?name=ILL"
     expect(response).to be_successful
 
-    body = JSON.parse(response.body)
-    expect(body['data']).to eq(["Illmatic, Lauryn Hill, Lill Kim"])
+    body = JSON.parse(response.body, symbolize_names: true)
+    names = body[:data].map do |merchant|
+      merchant[:attributes][:name]
+    end
+    
+    expect(names).to eq(["Illmatic", "Lauryn Hill", "Lill Kim"])
+    expect(names).to_not eq(["Jedi Mind Tricks"])
   end
 
 end
