@@ -32,7 +32,7 @@ describe "Relationships API" do
     merchant3 = create(:merchant, name: "Lill Kim" )
     merchant4 = create(:merchant, name: "Jedi Mind Tricks" )
     
-    get "/api/v1/merchants/find?name=ILL"
+    get "/api/v1/merchants/find_all?name=ILL"
     expect(response).to be_successful
 
     body = JSON.parse(response.body, symbolize_names: true)
@@ -44,17 +44,51 @@ describe "Relationships API" do
     expect(names).to_not eq(["Jedi Mind Tricks"])
   end
 
+  it "can find a merchants that contain a fragment, case insensitive" do 
+    merchant = create(:merchant, name: "Illmatic")
+
+    get '/api/v1/merchants/find?name=ILL'
+    body = JSON.parse(response.body, symbolize_names: true)
+    
+    name = body[:data][0][:attributes][:name].downcase
+    expect(body[:data]).to be_a(Array)
+    expect(name).to include('ill') 
+    # TODO need to expect data to be a hash not array
+  end
+
+  it "can find a list of items that contain a fragment, case insensitive" do 
+    merchant = create(:merchant)
+    item = create(:item, name: 'harujuku girls', merchant: merchant)
+    item2 = create(:item, name: 'harumonica', merchant: merchant)
+    item3 = create(:item, name: 'Avocado Basil Ice Cream', merchant: merchant)
+
+    get '/api/v1/items/find_all?name=haru'
+
+    expect(response).to be_successful
+
+    body = JSON.parse(response.body, symbolize_names: true)
+    names = body[:data].map do |merchant|
+      merchant[:attributes][:name]
+    end
+    
+    expect(names).to eq(["harujuku girls", "harumonica"])
+    expect(names).to_not eq(["Jedi Mind Tricks"])
+
+  end
+  
+
 end
 
-
-# describe "search endpoints" do
-#     xit 'can find a list of merchants that contain a fragment, case insensitive' do
-#       response = conn('/api/v1/merchants/find_all?name=ILL').get
+# it 'can find a list of items that contain a fragment, case insensitive' do
+#       response = conn('/api/v1/items/find_all?name=haru').get
 #       json = JSON.parse(response.body, symbolize_names: true)
 
 #       names = json[:data].map do |merchant|
-#         merchant[:attributes][:name]
+#         merchant[:attributes][:name].downcase
 #       end
 
-#       expect(names.sort).to eq(["Schiller, Barrows and Parker", "Tillman Group", "Williamson Group", "Williamson Group", "Willms and Sons"])
+#       expect(names.count).to eq(18)
+#       names.each do |name|
+#         expect(name).to include('haru')
+#       end
 #     end

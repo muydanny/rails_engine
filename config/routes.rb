@@ -5,8 +5,8 @@ Rails.application.routes.draw do
       resources :items, except: [:new, :edit] do 
         get 'merchant', to: 'items/merchants#show'
       end
-  
-      get 'merchants/find', controller: 'merchants/search', action: 'find'
+      get 'items/find_all', controller: 'items/search', action: 'find_all'
+      get 'merchants/find_all', controller: 'merchants/search', action: 'find_all'
       resources :merchants, except: [:new, :edit] do 
         resources :items, only: [:index], controller: 'merchants/items'
       end
