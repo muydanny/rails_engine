@@ -53,7 +53,7 @@ describe "Relationships API" do
     name = body[:data][:attributes][:name].downcase
     expect(body[:data]).to be_a(Hash)
     expect(name).to include('ill') 
-    # TODO need to expect data to be a hash not array
+  
   end
 
   it "can find a list of items that contain a fragment, case insensitive" do 
@@ -79,16 +79,3 @@ describe "Relationships API" do
 
 end
 
-# it 'can find a list of items that contain a fragment, case insensitive' do
-#       response = conn('/api/v1/items/find_all?name=haru').get
-#       json = JSON.parse(response.body, symbolize_names: true)
-
-#       names = json[:data].map do |merchant|
-#         merchant[:attributes][:name].downcase
-#       end
-
-#       expect(names.count).to eq(18)
-#       names.each do |name|
-#         expect(name).to include('haru')
-#       end
-#     end
